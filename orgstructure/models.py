@@ -19,10 +19,10 @@ class Organization(models.Model):
 class UserProfile(models.Model):
 
     ROLES = (
-        (1, "READER"),
-        (2, "AUTHOR"),
-        (3, "MODERATOR"),
-        (4, "ADMIN"),
+        ("READER", "Читатель"),
+        ("AUTHOR", "Автор"),
+        ("MODERATOR", "Модератор"),
+        ("ADMIN", "Администратор"),
     )
 
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
@@ -30,7 +30,7 @@ class UserProfile(models.Model):
     profile_text = models.TextField(blank=True)
     position = models.CharField(max_length=255, blank=True)
     organization = models.ForeignKey(Organization, related_name="profiles", on_delete=models.CASCADE)
-    role = models.CharField(max_length=1, choices=ROLES)
+    role = models.CharField(max_length=9, choices=ROLES)
 
     def __str__(self):
         return self.fio
