@@ -27,7 +27,7 @@ class Article(models.Model):
         ("DELETED", "Удалено"),
     )
 
-    title = models.CharField(max_length=255, blank=False)
+    title = models.CharField(max_length=255, blank=True)
     annotation = models.TextField(blank=True)
     text = models.TextField(blank=True)
     photo = models.ImageField(upload_to="article_photo", blank=True, null=True)
@@ -39,7 +39,7 @@ class Article(models.Model):
     files = models.ManyToManyField(ArticleFile, related_name="articles", blank=True)
     sections = models.ManyToManyField(Section, related_name="articles", blank=True)
     questions = models.ManyToManyField(Question, related_name="articles", blank=True)
-    status = models.CharField(max_length=10, choices=STATUSES)
+    status = models.CharField(max_length=10, choices=STATUSES, default="NEW")
 
 
 class Comment(models.Model):

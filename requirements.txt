@@ -1,6 +1,6 @@
 asgiref==3.4.1
 backports.zoneinfo==0.2.1
-Django==4.0
+Django==3.2.11
 django-cors-headers==3.10.1
 django-modeltranslation==0.17.3
 djangorestframework==3.13.0

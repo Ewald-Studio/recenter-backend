@@ -3,9 +3,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Organization(models.Model):
-    name = models.CharField(max_length=255, blank=False)
-    logo = models.ImageField(upload_to="logos")
-    photo = models.ImageField(upload_to="photos")
+    name = models.CharField(max_length=255)
+    logo = models.ImageField(upload_to="logos", blank=True)
+    photo = models.ImageField(upload_to="photos", blank=True)
     short_info = models.CharField(max_length=255, blank=True)
     main_phone = models.CharField(max_length=30, blank=True)
     description = models.TextField(blank=True)
@@ -20,7 +20,7 @@ class UserProfile(models.Model):
 
     ROLES = (
         ("READER", "Читатель"),
-        ("AUTHOR", "Автор"),
+        ("WRITER", "Автор"),
         ("MODERATOR", "Модератор"),
         ("ADMIN", "Администратор"),
     )
