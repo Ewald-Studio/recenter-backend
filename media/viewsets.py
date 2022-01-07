@@ -1,5 +1,7 @@
+from django.http import request
 from rest_framework import viewsets, mixins
 from media.models import (Article, ArticleFile, Comment, Question, Section)
+from orgstructure.models import UserProfile
 
 
 from .serializers import (
@@ -13,7 +15,20 @@ from .serializers import (
 
 class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
-    queryset = Article.objects.all()
+    
+    def get_queryset(self):
+        # role = self.request.query_params.get('role')
+        user_pk = self.request.user.pk
+        up = UserProfile.objects.get(user_id=user_pk)
+        role = up.role
+        if role == "WRITER":
+            queryset = Article.objects.filter(author_id=self.request.user.pk)
+        elif role == "MODERATOR":
+            queryset = Article.objects.filter(status="MODERATION")
+        elif role == "ADMIN":
+            queryset = Article.objects.all()
+
+        return queryset
 
 
 class ArticleFileViewSet(viewsets.ModelViewSet):

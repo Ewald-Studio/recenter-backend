@@ -33,7 +33,25 @@ def login(request):
 
 @api_view()
 def userprofile(request):
+    up = UserProfile.objects.get(user_id=request.user.pk)
     profile = {
-        "id": request.user.pk,
+        "user_id": request.user.pk,
+        "profile_id": up.id,
+        "fio": up.fio,
+        "profile_text": up.profile_text,
+        "position": up.position,
+        "role": up.role,
     }
+    if up.organization_id:
+        organization = Organization.objects.get(id=up.organization_id)
+        organization_dict = {
+            "name": organization.name,
+            # "logo": organization.logo,
+            "short_info": organization.short_info,
+            "is_staff": organization.is_staff,
+        },
+        profile["organization"] = organization_dict
+    
+    print(profile)
+    
     return Response(profile)
