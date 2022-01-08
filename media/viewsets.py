@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from media.models import (Article, ArticleFile, Comment, Question, Section, ArticleFile)
 from orgstructure.models import UserProfile
+import datetime
 
 from .serializers import (
     ArticleSerializer, 
@@ -58,6 +59,15 @@ class ArticleFileViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
+
+    def perform_create(self, serializer):
+        text = self.request.data["text"]
+        article = self.request.data["article"]
+        if not self.request.user.is_anonymous:
+            user = self.request.user
+            author = UserProfile.objects.get(user_id=user.id)
+            serializer.save(article_id=article, author_id=author.id, text=text, datetime=datetime.datetime.now())
+        
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
