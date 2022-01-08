@@ -130,5 +130,6 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+MEDIA_URL = 'media/'
 
 from .settings_local import *

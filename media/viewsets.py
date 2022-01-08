@@ -23,7 +23,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
         article = Article.objects.get(pk=pk)
         for file in request.FILES.getlist('files'):
             article_file, created = ArticleFile.objects.get_or_create(file=file)
-            article_file.name = article_file.file.name
+            article_file.name = article_file.file.name.replace('.pdf', '').split('/')[-1]
             article_file.save()
             article.files.add(article_file)
         return Response({ 'success': True })

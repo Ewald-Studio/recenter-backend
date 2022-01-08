@@ -8,9 +8,28 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ArticleFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleFile
+        fields = '__all__'
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+
+class SectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = '__all__'
+
+
 class ArticleSerializer(serializers.ModelSerializer):
-    author = UserProfileSerializer()
-    comments = CommentSerializer(many=True)
+    author = UserProfileSerializer(required=False)
+    comments = CommentSerializer(required=False, many=True)
+    files = ArticleFileSerializer(required=False, many=True)
 
     class Meta:
         model = Article
@@ -30,24 +49,4 @@ class ArticleSerializer(serializers.ModelSerializer):
             'questions',
             'status',
             'comments',
-            )
-
-
-class ArticleFileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ArticleFile
-        fields = '__all__'
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
-
-
-class SectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Section
-        fields = '__all__'
-
-
+        )
