@@ -9,6 +9,8 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    organization = OrganizationSerializer()
+
     class Meta:
         model = UserProfile
         fields = '__all__'

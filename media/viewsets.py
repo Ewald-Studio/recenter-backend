@@ -2,8 +2,7 @@ from django.http import request
 from rest_framework import viewsets, mixins
 from media.models import (Article, ArticleFile, Comment, Question, Section)
 from orgstructure.models import UserProfile
-import json
-
+import datetime
 
 from .serializers import (
     ArticleSerializer, 
@@ -37,7 +36,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
             writer = UserProfile.objects.get(user_id=user.id)
             serializer.save(author_id=writer.id)
 
-        return 
 
 class ArticleFileViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleFileSerializer
@@ -47,6 +45,15 @@ class ArticleFileViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
+
+    def perform_create(self, serializer):
+        text = self.request.data["text"]
+        article = self.request.data["article"]
+        if not self.request.user.is_anonymous:
+            user = self.request.user
+            author = UserProfile.objects.get(user_id=user.id)
+            serializer.save(article_id=article, author_id=author.id, text=text, datetime=datetime.datetime.now())
+        
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
