@@ -33,6 +33,7 @@ class Article(models.Model):
     photo = models.ImageField(upload_to="article_photo", blank=True, null=True)
     video = models.CharField(max_length=255, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
+    last_edit_date = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(blank=True, null=True)
     authorship = models.CharField(max_length=255, blank=True, null=True)
     author = models.ForeignKey(UserProfile, related_name="articles", on_delete=models.SET_NULL, blank=True, null=True)
