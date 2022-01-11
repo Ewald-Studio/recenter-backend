@@ -8,6 +8,7 @@ import datetime
 
 from .serializers import (
     ArticleSerializer, 
+    ArticleCreateOrUpdateSerializer,
     ArticleFileSerializer, 
     CommentSerializer, 
     QuestionSerializer, 
@@ -18,6 +19,11 @@ from .serializers import (
 class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return ArticleCreateOrUpdateSerializer
+        return super().get_serializer_class()
+
     @action(methods=['POST'], detail=True)
     def upload(self, request, pk):
         article = Article.objects.get(pk=pk)
@@ -27,7 +33,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
             article_file.save()
             article.files.add(article_file)
         return Response({ 'success': True })
-
 
     def get_queryset(self):
         # role = self.request.query_params.get('role')

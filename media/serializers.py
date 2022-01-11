@@ -26,6 +26,23 @@ class SectionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ArticleCreateOrUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = (
+            'id',
+            'title',
+            'annotation',
+            'text',
+            'photo',
+            'video',
+            'publish_date',
+            'authorship',
+            'sections',
+            'questions',
+            'status',
+        )
+
 class ArticleSerializer(serializers.ModelSerializer):
     author = UserProfileSerializer(required=False)
     comments = CommentSerializer(required=False, many=True)
@@ -42,6 +59,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             'video',
             'creation_date',
             'publish_date',
+            'last_edit_date',
             'authorship',
             'author',
             'files',

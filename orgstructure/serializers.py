@@ -9,7 +9,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    organization = OrganizationSerializer()
+    organization = OrganizationSerializer(required=False)
 
     class Meta:
         model = UserProfile
