@@ -3,9 +3,17 @@ from media.models import (Article, ArticleFile, Comment, Question, Section)
 from orgstructure.serializers import UserProfileSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = UserProfileSerializer()
+
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = (
+            'id',
+            'author',
+            'article',
+            'datetime',
+            'text',
+            )
 
 
 class ArticleFileSerializer(serializers.ModelSerializer):
