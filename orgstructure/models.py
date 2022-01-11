@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class Organization(models.Model):
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to="logos", blank=True)
-    photo = models.ImageField(upload_to="photos", blank=True)
+    logo = models.ImageField(upload_to="logos", blank=True, null=True)
+    photo = models.ImageField(upload_to="photos", blank=True, null=True)
     short_info = models.CharField(max_length=255, blank=True)
     main_phone = models.CharField(max_length=30, blank=True)
     description = models.TextField(blank=True)

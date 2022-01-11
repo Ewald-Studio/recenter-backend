@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+import os.path
 
 from orgstructure.models import UserProfile
 
@@ -48,3 +50,12 @@ class Comment(models.Model):
     author = models.ForeignKey(UserProfile, related_name="comments", on_delete=models.SET_NULL, null=True)
     text = models.TextField(blank=False)
     datetime = models.DateTimeField(auto_now_add=True)
+
+
+@receiver(models.signals.post_delete, sender=ArticleFile)
+def auto_delete_on_delete(sender, instance, **kwargs):
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
+
+
