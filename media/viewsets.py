@@ -20,7 +20,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     
     def get_serializer_class(self):
-        if self.action == 'create' or self.action == 'update':
+        if self.action == 'create' or self.action == 'update' or self.action == 'partial_update':
             return ArticleCreateOrUpdateSerializer
         return super().get_serializer_class()
 
