@@ -13,8 +13,16 @@ class CommentSerializer(serializers.ModelSerializer):
             'article',
             'datetime',
             'text',
-            )
+        )
 
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = (
+            'article',
+            'text',
+        )
 
 class ArticleFileSerializer(serializers.ModelSerializer):
     class Meta:

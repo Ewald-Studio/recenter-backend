@@ -9,7 +9,8 @@ import datetime
 from .serializers import (
     ArticleSerializer, 
     ArticleCreateOrUpdateSerializer,
-    ArticleFileSerializer, 
+    ArticleFileSerializer,
+    CommentCreateSerializer, 
     CommentSerializer, 
     QuestionSerializer, 
     SectionSerializer
@@ -53,8 +54,8 @@ class ArticleViewSet(viewsets.ModelViewSet):
             user = self.request.user
             writer = UserProfile.objects.get(user_id=user.id)
             serializer.save(author_id=writer.id)
-
-        return False
+        else:
+            assert False, "Forbidden"
 
 class ArticleFileViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleFileSerializer
@@ -65,6 +66,11 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CommentCreateSerializer
+        return super().get_serializer_class()
+
     def perform_create(self, serializer):
         text = self.request.data["text"]
         article = self.request.data["article"]
@@ -72,7 +78,8 @@ class CommentViewSet(viewsets.ModelViewSet):
             user = self.request.user
             author = UserProfile.objects.get(user_id=user.id)
             serializer.save(article_id=article, author_id=author.id, text=text, datetime=datetime.datetime.now())
-        
+        else:
+            assert False, "Forbidden"
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
