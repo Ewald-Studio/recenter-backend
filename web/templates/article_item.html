@@ -4,15 +4,32 @@
     font-size: 0.8em;
     color: #999;
   }
+  .article-text img {
+    max-height: 600px;
+    display: block;
+    border: 10px solid #eee;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .article-questions {
+    font-size: 0.8em;
+    padding-left: 2em;
+    border-left: 10px solid #eee;
+  }
 </style>
 {% endblock %} {% block content %}
 <div class="container mb-4">
   <h2 class="article-title mt-4 mb-2">{{ article.title }}</h2>
   <p class="article-author mb-4">{{ article.authorship }}</p>
-  <div class="article-annotation">{{ article.annotation }}</div>
-  <div class="article-text">{{ article.text|safe }}</div>
+  {% if article.questions %}
+  <div class="article-questions mt-4 mb-4">
+    {{ article.questions|linebreaksbr }}
+  </div>
+  {% endif %}
+  <!-- <div class="article-annotation">{{ article.annotation }}</div> -->
   {% if article.video %}
-  <div class="article-video">
+  <div class="article-video mb-4">
     <iframe
       src="{{ article.video_full_path }}"
       width="560"
@@ -21,7 +38,9 @@
       allowfullscreen="allowfullscreen"
     ></iframe>
   </div>
-  {% endif %} {% with article.files.all as files %} {% if files.count > 0 %}
+  {% endif %}
+  <div class="article-text">{{ article.text|safe }}</div>
+  {% with article.files.all as files %} {% if files.count > 0 %}
   <div class="article-files mt-4">
     <h5>Материалы для загрузки:</h5>
     <ul>

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from django.views.decorators.cache import cache_page
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
@@ -5,7 +6,7 @@ from media.models import Article, Section
 from orgstructure.models import Organization
 
 
-@cache_page(60*10)
+# @cache_page(60*10)
 def index(request):
     approved_articles = Article.objects.filter(status="APPROVED").select_related('author', 'author__organization')
     important_articles = approved_articles.filter(is_important=True)
@@ -35,8 +36,15 @@ def article_list(request, section_id):
 
 def article_search(request):
     query = request.GET.get('query', '')
+    articles = Article.objects.filter(
+        Q(title__icontains=query) | 
+        Q(annotation__icontains=query) |
+        Q(text__icontains=query) |
+        Q(questions__icontains=query)
+    )
     data = {
         'query': query,
+        'articles': articles,       
     }
     return render(request, 'article_search.html', data)
 
