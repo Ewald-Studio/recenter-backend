@@ -13,7 +13,6 @@ class Section(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.TextField(blank=True)
 
-
 class ArticleFile(models.Model):
     name = models.CharField(max_length=255, blank=False)
     file = models.FileField(upload_to="files")
@@ -44,6 +43,13 @@ class Article(models.Model):
     questions = models.TextField(blank=True)
     status = models.CharField(max_length=10, choices=STATUSES, default="NEW")
     is_important = models.BooleanField(default=False)
+
+    @property
+    def video_full_path(self):
+        if "watch" in self.video:
+            return self.video.replace('watch?v=', 'embed/')
+        if 'youtu.be' in self.video:
+            return self.video.replace('youtu.be/', 'youtube.com/embed/')
 
 
 class Comment(models.Model):

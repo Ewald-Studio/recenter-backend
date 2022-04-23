@@ -1,3 +1,51 @@
-{% extends "layout.html" %} {% block content %}
-<h1>Index page</h1>
+{% extends "layout.html" %} {% block head %}
+<style>
+  .sections {
+    padding: 1em 0;
+    background: #eee;
+  }
+  .article-author {
+    font-size: 0.8em;
+    color: #999;
+  }
+</style>
+{% endblock %} {% block content %}
+
+<!-- Sections -->
+<div class="sections mt-4 mb-4 row">
+  <div class="col-md-4">
+    <h4>Разделы ресурсного центра</h4>
+  </div>
+  <div class="col">
+    {% for section in sections %}{% if section.articles_count > 0 %}
+    <div class="section mb-2">
+      <div class="section_name">
+        <a href="{% url 'article_list' section.id %}">{{ section.name }}</a>
+        <small class="text-muted">({{ section.articles_count }})</small>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+  </div>
+  <div class="col">{% endif %} {% endif %} {% endfor %}</div>
+</div>
+
+<!-- Random articles -->
+<h4 class="mt-4 mb-3">Случайные статьи</h4>
+<div class="row random-articles">
+  {% for article in articles %}
+  <div class="article col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="article-author">{{ article.authorship }}</p>
+        <p class="card-text">{{ article.annotation }}</p>
+        <a href="{% url 'article_item' article.id %}" class="card-link"
+          >Читать</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock %}

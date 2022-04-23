@@ -1,1 +1,33 @@
-{% extends "layout.html" %} {% block content %} {% endblock %}
+{% extends "layout.html" %} {% block head %}
+<style>
+  .sections {
+    padding: 1em 0;
+    background: #eee;
+  }
+  .article-author {
+    font-size: 0.8em;
+    color: #999;
+  }
+</style>
+{% endblock %} {% block content %}
+
+<h2 class="mt-4">{{ section.name }}</h2>
+
+<div class="row mt-4">
+  <div class="col">
+    {% for article in articles %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="article-author">{{ article.authorship }}</p>
+        <p class="card-text">{{ article.annotation }}</p>
+        <a href="{% url 'article_item' article.id %}" class="card-link"
+          >Читать</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
