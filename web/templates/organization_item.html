@@ -1,1 +1,85 @@
-{% extends "layout.html" %} {% block content %} {% endblock %}
+{% extends "layout.html" %} {% block head %}
+<style>
+  .organization-logo img {
+    max-height: 100px;
+  }
+  .organization-photo img {
+    max-height: 600px;
+    display: block;
+    border: 10px solid #eee;
+    border-radius: 10px;
+  }
+  .organization-description img {
+    max-height: 600px;
+    display: block;
+    border: 10px solid #eee;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .organization-contacts {
+    font-size: 0.8em;
+    padding-left: 2em;
+    border-left: 10px solid #eee;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container mb-4">
+  {% if organization.logo %}
+  <div class="organization-logo mt-4 mb-4">
+    <img src="{{ organization.logo.url }}" alt="{{ organization.name }}" />
+  </div>
+  {% endif %}
+  <h2 class="article-title mt-4 mb-2">{{ organization.name }}</h2>
+  {% if organization.main_phone or organization.contacts or organization.website %}
+  <div class="organization-contacts mt-4 mb-4">
+    {{organization.contacts|linebreaksbr}} 
+    {% if organization.main_phone %}
+      <br />
+      Телефон: {{organization.main_phone }} 
+    {% endif %} 
+    {% if organization.website %}
+      <br />
+      Сайт:
+      <a href="{{ organization.website }}">{{ organization.website }}</a>
+    {% endif %}
+  </div>
+  {% endif %} 
+  {% if organization.photo %}
+  <div class="organization-photo mt-4 mb-4">
+    <img src="{{ organization.photo.url }}" alt="{{ organization.name }}" />
+  </div>
+  {% endif %}
+  <div class="organization-description">
+    {{ organization.description|safe }}
+  </div>
+
+  {% if articles.count %}
+    <!-- Random articles -->
+    <h4 class="mt-4 mb-3">Актуальные публикации</h4>
+    <div class="row random-articles">
+        {% for article in articles %}
+        <div class="article col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                    <a href="{% url 'article_item' article.id %}">{{ article.title }}</a>
+                    </h5>
+                    <p class="article-author">{{ article.authorship }}</p>
+                    <p class="card-text">{{ article.annotation }}</p>
+                    <a href="{% url 'article_item' article.id %}" class="card-link">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if organization.website %}
+  <div class="organization-website mt-2 mb-4">
+    <a href="{{ organization.website }}" class="btn btn-primary" target="_blank">Перейти на сайт организации</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

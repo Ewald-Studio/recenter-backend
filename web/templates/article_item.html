@@ -21,7 +21,11 @@
 {% endblock %} {% block content %}
 <div class="container mb-4">
   <h2 class="article-title mt-4 mb-2">{{ article.title }}</h2>
-  <p class="article-author mb-4">{{ article.authorship }}</p>
+  <p class="article-author">
+    {{ article.authorship }}
+    <br />
+    <a href="{% url 'organization_item' article.author.organization.id %}">{{ article.author.organization.name }}</a>
+  </p>
   {% if article.questions %}
   <div class="article-questions mt-4 mb-4">
     {{ article.questions|linebreaksbr }}

@@ -35,17 +35,24 @@ def article_list(request, section_id):
 
 
 def article_search(request):
-    query = request.GET.get('query', '')
-    articles = Article.objects.filter(
-        Q(title__icontains=query) | 
-        Q(annotation__icontains=query) |
-        Q(text__icontains=query) |
-        Q(questions__icontains=query)
-    )
-    data = {
-        'query': query,
-        'articles': articles,       
-    }
+    query = request.GET.get('query', '').strip()
+    if len(query) < 3:
+        data = {
+            'query': query,
+            'articles': [],
+            'error': "Запрос должен содержать не менее 3-х символов"
+        }
+    else:
+        articles = Article.objects.filter(
+            Q(title__icontains=query) | 
+            Q(annotation__icontains=query) |
+            Q(text__icontains=query) |
+            Q(questions__icontains=query)
+        )
+        data = {
+            'query': query,
+            'articles': articles,       
+        }
     return render(request, 'article_search.html', data)
 
 
@@ -67,7 +74,9 @@ def organization_list(request):
 
 def organization_item(request, organization_id):
     organization = get_object_or_404(Organization, id=organization_id)
+    articles = Article.objects.filter(status="APPROVED", author__organization=organization).order_by('-creation_date')[:3]
     data = {
-        'organization': organization
+        'organization': organization,
+        'articles': articles,
     }
     return render(request, 'organization_item.html', data)

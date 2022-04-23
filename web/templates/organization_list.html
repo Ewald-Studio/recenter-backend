@@ -1,1 +1,41 @@
-{% extends "layout.html" %} {% block content %} {% endblock %}
+{% extends "layout.html" %} {% block head %}
+<style>
+  .article-author {
+    font-size: 0.8em;
+    color: #999;
+  }
+</style>
+{% endblock %}{% block content %}
+
+<h2 class="mt-4 mb-4">Организации — участники проекта</h2>
+
+<div class="row random-articles">
+  {% for organization in organizations %}
+  <div class="organization col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{% url 'organization_item' organization.id %}"
+            >{{ organization.name }}</a
+          >
+        </h5>
+        {% if organization.short_info %}
+        <p class="card-text organization-short-info">
+          {{ organization.short_info }}
+        </p>
+        {% endif %} {% if organization.main_phone %}
+        <p class="card-text organization-contacts">
+          Телефон: {{ organization.main_phone }}
+        </p>
+        {% endif %}
+        <a
+          href="{% url 'organization_item' organization.id %}"
+          class="card-link"
+          >Подробнее</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

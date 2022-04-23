@@ -21,6 +21,17 @@
       body {
         font-family: "PT Sans", sans-serif;
       }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "PT Serif", serif;
+        font-weight: normal;
+      }
+      .logo {
+        height: 50px;
+      }
       .nav-link {
         text-decoration: underline;
       }
@@ -31,18 +42,14 @@
         text-decoration: none;
         color: #000;
       }
+      .article-author {
+        font-size: 0.8em;
+        color: #999;
+      }
       .footer {
         background: #eee;
         padding: 2em 1em;
         font-size: 0.8em;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-family: "PT Serif", serif;
-        font-weight: normal;
       }
     </style>
     {% block head %}{% endblock %}
@@ -50,7 +57,13 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand" href="/">Ресурсный центр</a>
+        <a class="navbar-brand" href="/">
+          <img
+            src="{% static 'img/logo.png' %}"
+            class="logo"
+            alt="Ресурсный центр"
+          />
+        </a>
         <button
           class="navbar-toggler"
           type="button"

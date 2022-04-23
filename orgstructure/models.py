@@ -9,7 +9,8 @@ class Organization(models.Model):
     short_info = models.CharField(max_length=255, blank=True)
     main_phone = models.CharField(max_length=30, blank=True)
     description = models.TextField(blank=True)
-    contacts = models.CharField(blank=True, max_length=255)
+    contacts = models.TextField(blank=True)
+    website = models.CharField(max_length=255, blank=True)
     is_staff = models.BooleanField(default=False)
 
     def __str__(self):

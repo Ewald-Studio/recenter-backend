@@ -13,6 +13,7 @@ class Section(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.TextField(blank=True)
 
+
 class ArticleFile(models.Model):
     name = models.CharField(max_length=255, blank=False)
     file = models.FileField(upload_to="files")
