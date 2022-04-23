@@ -43,6 +43,7 @@ class Article(models.Model):
     sections = models.ManyToManyField(Section, related_name="articles", blank=True)
     questions = models.TextField(blank=True)
     status = models.CharField(max_length=10, choices=STATUSES, default="NEW")
+    is_important = models.BooleanField(default=False)
 
 
 class Comment(models.Model):

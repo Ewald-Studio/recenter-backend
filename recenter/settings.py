@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'recenter',
     'media',
     'orgstructure',
+    'web',
 ]
 
 MIDDLEWARE = [
