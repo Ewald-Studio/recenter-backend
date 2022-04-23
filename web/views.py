@@ -1,9 +1,11 @@
+from django.views.decorators.cache import cache_page
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from media.models import Article, Section
 from orgstructure.models import Organization
 
 
+@cache_page(60*10)
 def index(request):
     approved_articles = Article.objects.filter(status="APPROVED").select_related('author', 'author__organization')
     important_articles = approved_articles.filter(is_important=True)
