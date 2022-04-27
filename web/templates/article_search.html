@@ -1,42 +1,21 @@
-{% extends "layout.html" %} {% block head %}
-<style>
-  .sections {
-    padding: 1em 0;
-    background: #eee;
-  }
-  .article-author {
-    font-size: 0.8em;
-    color: #999;
-  }
-</style>
-{% endblock %} {% block content %}
+{% extends "layout.html" %}
+{% block content %}
 
 <h2 class="mt-4">Результаты поиска</h2>
 
 <div class="row mt-4 mb-4">
   <div class="col">
+    
     {% if error %}
     <h5>{{ error }}</h5>
     {% elif articles.count == 0 %}
     <h5>По запросу «{{ query }}» ничего не найдено</h5>
-    {% endif %} {% for article in articles %}
-    <div class="card mb-2">
-      <div class="card-body">
-        <h5 class="card-title">
-          <a href="{% url 'article_item' article.id %}">{{ article.title }}</a>
-        </h5>
-        <p class="article-author">
-          {{ article.authorship }}
-          <br />
-          {{ article.author.organization.name }}
-        </p>
-        <p class="card-text">{{ article.annotation }}</p>
-        <a href="{% url 'article_item' article.id %}" class="card-link"
-          >Подробнее</a
-        >
-      </div>
-    </div>
+    {% endif %} 
+
+    {% for article in articles %}
+      {% include 'includes/article_card.html' with article=article %}
     {% endfor %}
+
   </div>
 </div>
 

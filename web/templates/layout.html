@@ -17,49 +17,18 @@
       href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,700&family=PT+Serif:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        font-family: "PT Sans", sans-serif;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-family: "PT Serif", serif;
-        font-weight: normal;
-      }
-      .logo {
-        height: 50px;
-      }
-      .nav-link {
-        text-decoration: underline;
-      }
-      .nav-link.active {
-        text-decoration: none;
-      }
-      .card-title a {
-        text-decoration: none;
-        color: #000;
-      }
-      .article-author {
-        font-size: 0.8em;
-        color: #999;
-      }
-      .footer {
-        background: #eee;
-        padding: 2em 1em;
-        font-size: 0.8em;
-      }
-    </style>
+    <link
+      href="{% static 'css/main.css' %}"
+      rel="stylesheet"
+      type="text/css" />
     {% block head %}{% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="/">
           <img
-            src="{% static 'img/logo.png' %}"
+            src="{% static 'img/logo_large.png' %}"
             class="logo"
             alt="Ресурсный центр"
           />
@@ -108,7 +77,7 @@
               placeholder="Поиск"
               value="{{query}}"
             />
-            <button class="btn btn-outline-light" type="submit">
+            <button class="btn btn-outline-primary" type="submit">
               <span class="fa-solid fa-search"></span>
             </button>
           </div>

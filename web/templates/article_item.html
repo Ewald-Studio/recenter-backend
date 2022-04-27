@@ -1,29 +1,5 @@
-{% extends "layout.html" %} {% block head %}
-<style>
-  .article-author {
-    font-size: 0.8em;
-    color: #999;
-  }
-  .article-text img {
-    max-height: 600px;
-    max-width: 100%;
-    display: block;
-    border: 10px solid #eee;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .article-questions {
-    font-size: 0.8em;
-    padding-left: 2em;
-    border-left: 10px solid #eee;
-  }
-  .article-video {
-    width: 560px;
-    max-width: 100%;
-  }
-</style>
-{% endblock %} {% block content %}
+{% extends "layout.html" %} 
+{% block content %}
 <div class="container mb-4">
   <h2 class="article-title mt-4 mb-2">{{ article.title }}</h2>
   <p class="article-author">

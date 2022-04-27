@@ -18,7 +18,6 @@ class Organization(models.Model):
 
 
 class UserProfile(models.Model):
-
     ROLES = (
         ("READER", "Читатель"),
         ("WRITER", "Автор"),
@@ -35,3 +34,17 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.fio
+
+
+class Feedback(models.Model):
+    name = models.CharField("ФИО", max_length=255)
+    email = models.EmailField("Электронная почта")
+    specialist = models.CharField("Специалист", max_length=255, blank=True)
+    message = models.TextField("Сообщение")
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_new = models.BooleanField("Не отвечено (новое)", default=True)
+
+    def __str__(self):
+        if self.is_new:
+            return f"(Новое) {self.name}"
+        return self.name

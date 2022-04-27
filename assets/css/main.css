@@ -1,0 +1,80 @@
+body {
+  font-family: "PT Sans", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "PT Serif", serif;
+  font-weight: normal;
+}
+.logo {
+  height: 70px;
+}
+.nav-link {
+  text-decoration: underline;
+}
+.nav-link.active {
+  text-decoration: none;
+}
+.card-title a {
+  text-decoration: none;
+  color: #000;
+}
+.index-sections {
+  padding: 1em 0;
+  background: url("/static/img/bg.jpg") no-repeat center center;
+  background-size: cover;
+}
+.article-author {
+  font-size: 0.8em;
+  color: #999;
+}
+.article-text img {
+  max-height: 600px;
+  max-width: 100%;
+  display: block;
+  border: 10px solid #eee;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.article-questions {
+  font-size: 0.8em;
+  padding-left: 2em;
+  border-left: 10px solid #eee;
+}
+.article-video {
+  width: 560px;
+  max-width: 100%;
+}
+.organization-logo img {
+  max-height: 100px;
+}
+.organization-photo img {
+  max-height: 600px;
+  max-width: 100%;
+  display: block;
+  border: 10px solid #eee;
+  border-radius: 10px;
+}
+.organization-description img {
+  max-height: 600px;
+  max-width: 100%;
+  display: block;
+  border: 10px solid #eee;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.organization-contacts {
+  font-size: 0.8em;
+  padding-left: 2em;
+  border-left: 10px solid #eee;
+}
+.footer {
+  background: #eee;
+  padding: 2em 1em;
+  font-size: 0.8em;
+}

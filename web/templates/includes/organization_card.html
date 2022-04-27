@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{% url 'organization_item' organization.id %}">
+                {{ organization.name }}
+            </a>
+        </h5>
+        {% if organization.short_info %}
+        <p class="card-text organization-card-short-info">
+            {{ organization.short_info }}
+        </p>
+        {% endif %} 
+        {% if organization.main_phone %}
+        <p class="card-text organization-card-contacts">
+            Телефон: {{ organization.main_phone }}
+        </p>
+        {% endif %}
+        <a
+            href="{% url 'organization_item' organization.id %}"
+            class="card-link">
+            Подробнее
+        </a>
+    </div>
+</div>

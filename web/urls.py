@@ -11,6 +11,7 @@ urlpatterns = [
     path("search/", views.article_search, name="article_search"),
     path("organizations/", views.organization_list, name="organization_list"),
     path("organizations/<int:organization_id>/", views.organization_item, name="organization_item"),
+    path("feedback/", views.feedback, name="feedback"),
 ]
 
 if settings.DEBUG :

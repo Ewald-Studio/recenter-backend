@@ -1,9 +1,10 @@
 from __future__ import annotations
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.cache import cache_page
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from media.models import Article, Section
-from orgstructure.models import Organization
+from orgstructure.models import Organization, Feedback
 
 
 # @cache_page(60*10)
@@ -12,7 +13,7 @@ def index(request):
     important_articles = approved_articles.filter(is_important=True)
     articles = approved_articles.filter(is_important=False).order_by('?')[:3]
     sections = Section.objects.all().annotate(articles_count=Count('articles', filter=Q(articles__status="APPROVED")))
-    organizations = Organization.objects.all()
+    organizations = Organization.objects.filter(is_staff=True)
 
     data = {
         'important_articles': important_articles,
@@ -80,3 +81,15 @@ def organization_item(request, organization_id):
         'articles': articles,
     }
     return render(request, 'organization_item.html', data)
+
+
+def feedback(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        specialist = request.POST.get('specialist', '').strip()
+        message = request.POST.get('message', '').strip()
+        Feedback.objects.create(name=name, email=email, specialist=specialist, message=message)
+        return HttpResponseRedirect('/feedback/')
+    else:
+        return render(request, 'feedback.html')

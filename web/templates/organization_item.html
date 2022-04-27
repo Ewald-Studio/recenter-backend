@@ -1,31 +1,5 @@
-{% extends "layout.html" %} {% block head %}
-<style>
-  .organization-logo img {
-    max-height: 100px;
-  }
-  .organization-photo img {
-    max-height: 600px;
-    max-width: 100%;
-    display: block;
-    border: 10px solid #eee;
-    border-radius: 10px;
-  }
-  .organization-description img {
-    max-height: 600px;
-    max-width: 100%;
-    display: block;
-    border: 10px solid #eee;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .organization-contacts {
-    font-size: 0.8em;
-    padding-left: 2em;
-    border-left: 10px solid #eee;
-  }
-</style>
-{% endblock %} {% block content %}
+{% extends "layout.html" %} 
+{% block content %}
 <div class="container mb-4">
   {% if organization.logo %}
   <div class="organization-logo mt-4 mb-4">
