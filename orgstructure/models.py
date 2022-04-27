@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField("Краткое наименование", max_length=255)
     logo = models.ImageField(upload_to="logos", blank=True, null=True)
     photo = models.ImageField(upload_to="photos", blank=True, null=True)
-    short_info = models.CharField(max_length=255, blank=True)
-    main_phone = models.CharField(max_length=30, blank=True)
-    description = models.TextField(blank=True)
-    contacts = models.TextField(blank=True)
-    website = models.CharField(max_length=255, blank=True)
+    short_info = models.CharField("Краткое описание (1 предложение)", max_length=255, blank=True)
+    main_phone = models.CharField("Телефон", max_length=30, blank=True)
+    description = models.TextField("Подробное описание", blank=True)
+    contacts = models.TextField("Контактная информация", blank=True)
+    website = models.CharField("Ссылка на сайт", max_length=255, blank=True)
     is_staff = models.BooleanField(default=False)
 
     def __str__(self):

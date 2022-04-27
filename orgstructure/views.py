@@ -45,13 +45,10 @@ def userprofile(request):
     if up.organization_id:
         organization = Organization.objects.get(id=up.organization_id)
         organization_dict = {
+            "id": organization.id,
             "name": organization.name,
-            # "logo": organization.logo,
-            "short_info": organization.short_info,
             "is_staff": organization.is_staff,
-        },
+        }
         profile["organization"] = organization_dict
-    
-    print(profile)
     
     return Response(profile)
