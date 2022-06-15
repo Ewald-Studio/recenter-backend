@@ -1,6 +1,6 @@
 from __future__ import annotations
 # from django.views.decorators.cache import cache_page
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from media.models import Article, Section
@@ -85,6 +85,9 @@ def organization_item(request, organization_id):
 
 def feedback(request):
     if request.method == 'POST':
+        checked = request.POST.get('check', False)
+        if not checked:
+            return HttpResponse(status=400)
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
         specialist = request.POST.get('specialist', '').strip()
