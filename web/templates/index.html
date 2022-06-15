@@ -45,7 +45,6 @@
   {% endfor %}
 </div>
 
-
 <!-- Feedback form -->
 <div class="row index-sections">
   <div class="col-md-4">
@@ -80,7 +79,11 @@
         <label for="message">Ваше сообщение</label>
         <textarea class="form-control" id="message" name="message" rows="3" placeholder="Сообщение" required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Отправить</button>
+      <div class="form-group form-check mb-2">
+        <input type="checkbox" class="form-check-input" id="check" name="check" />
+        <p><small>Настоящим я даю согласие на обработку своих персональных данных в соответствии с законодательством Российской Федерации, в том числе Федеральным законом от 27.07.2006г. № 152-ФЗ «О персональных данных»</small></p>
+      </div>
+      <button type="submit" id="submit" class="btn btn-primary" disabled>Отправить</button>
     </form>
   </div>
 </div>
@@ -97,5 +100,14 @@
 <div class="row mb-4">
   <p><a href="{% url 'organization_list' %}">Все организации</a></p>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script>
+  var checker = document.getElementById('check');
+  var sendbtn = document.getElementById('submit');
+  checker.onchange = function() {
+    sendbtn.disabled = !!!this.checked;
+  };
+</script>
 
 {% endblock %}
